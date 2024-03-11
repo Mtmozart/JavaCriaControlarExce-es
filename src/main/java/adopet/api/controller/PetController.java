@@ -5,11 +5,13 @@ import adopet.api.dto.PetDTO;
 import adopet.api.service.PetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,11 @@ public class PetController {
     @Transactional
     public ResponseEntity<String> cadastrar(@RequestPart @Valid CadastroPetDTO dados,
                                             @RequestParam MultipartFile imagem){
-        service.cadastrar(dados, imagem);
+        try {
+            service.cadastrar(dados, imagem);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 }

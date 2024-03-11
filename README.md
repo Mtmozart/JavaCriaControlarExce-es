@@ -20,7 +20,7 @@ Exceções, quando não tratada, retornam exceções que quebram o código, para
 ```
 # IMPORTANTE
 
-Você pode tratar execeções na chamada do método que ler a exceção, por exemplo, em um MVC, trato exeções dentro do service, na chamada do método eu uso o try, catch, além disso, quando for várias exeções, eu posso usar o "|" dentro do cacth, assim, evito vários caths seguidos para tratar várias exeções.
+Você pode tratar execeções na chamada do método que ler a exceção, por exemplo, em um MVC, trato exeções dentro do service, na chamada do método eu uso o try, catch, além disso, quando for várias exeções, eu posso usar o operador pipe "|" dentro do cacth, assim, evito vários caths seguidos para tratar várias exeções.
 ```Java
 @PutMapping("/aprovar")
 @Transactional
@@ -51,6 +51,29 @@ ublic void solicitar(SolicitacaoDeAdocaoDTO dto){
 
     adocaoRepository.save(new Adocao(tutor,pet, dto.motivo()));
 }
+```
+
+## Hierarquia das das exceções
+Todas são filhas de Throwable, temos, por padrão a NullPointerException e ArithmeticException, a primeira ocorre quando você tenta manipular as propriedades, campos, atributos ou métodos de um objeto, mas sem ter esse objeto.e a segunda ocorre quando tem erro de cálculo. 
+
+- São filhas de exception, que herda de  Throwable, sendo a seguinte orefem:
+- Throwable, Exception, RunTimeException, e juntas NullPointerException e ArithmeticException.
+**Por que saber Isso é importante?** Por que se eu quiser criar uma exception, eu devo fazer com que herder de RunTimeException.
 
 
+
+#Exemplo:
+
+```Java 
+public class AdocaoException extends RuntimeException {
+    public AdocaoException(String message) {
+        super(message);
+    }
+}
+```
+
+- Outro ponto importante: exception unchecked,  não são verificadas pelo compilador do Java, estas são as que herdam de RunTimeException, se herdar diretamente de Exception, está é verificada pelo compilado, sendo obrigatório o seu tratamento, geralmente no topo fica assim:
+
+```Java
+public String upload(MultipartFile imagem) throws IOException
 ```

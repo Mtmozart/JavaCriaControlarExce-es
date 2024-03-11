@@ -12,7 +12,7 @@ public class ImageStorageService {
 
     private static final String PASTA_UPLOAD = System.getProperty("user.dir") + "/src/main/resources/storage/";
 
-    public String upload(MultipartFile imagem) {
+    public String upload(MultipartFile imagem) throws IOException{
 
         String novoNome = this.gerarNovoNome(imagem.getOriginalFilename());
 
