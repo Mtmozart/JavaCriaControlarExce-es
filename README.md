@@ -94,3 +94,15 @@ public class GlobalExceptionHandler {
     }
 ```
 
+## Padrão de response utilizado: RFC 7807, link: https://datatracker.ietf.org/doc/html/rfc7807
+
+```json
+{
+  "message": "Unable to find adopet.api.model.Adocao with id 7",
+  "httpStatus": "BAD_REQUEST",
+  "time": "2023-11-16T10:40:00.391172345"
+}
+
+```
+## comando para não mostrar a stacktrace:server.error.include-stacktrace=never
+
