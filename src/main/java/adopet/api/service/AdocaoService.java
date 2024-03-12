@@ -38,6 +38,9 @@ public class AdocaoService {
 
     public void solicitar(SolicitacaoDeAdocaoDTO dto){
         Pet pet = petRepository.getReferenceById(dto.idPet());
+        if( pet == null){
+            throw new AdocaoException("Pet não existe");
+        }
         if(pet.getAdotado()){
             throw new AdocaoException("Pet já adotado");
         }
