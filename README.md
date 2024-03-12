@@ -77,3 +77,20 @@ public class AdocaoException extends RuntimeException {
 ```Java
 public String upload(MultipartFile imagem) throws IOException
 ```
+
+## Trabalhando com exceções pelo spring boot
+
+O spring boot permite que utilize a todas as exceções em um única classe, evitando a poluição do código com vários try/caths,
+ela se chama: GlobalExceptionHandler, mas, imagino que pouque importe o nome, a não ser que seja uma boa prática, o que importante é a anotação:
+@RestControllerAdvice, e para saber qual é a classe, é só usar @ExceptionHandler(Exception.class), conforme exemplo:
+
+```Java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(AdocaoException.class)
+    public ResponseEntity<String> adocaoException(AdocaoException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+```
+
